@@ -1,0 +1,25 @@
+# import User from '../user/user.graphql'
+# import Game from '../game/game.graphql'
+
+type Review {
+  id: ID!
+  user: User!
+  game: Game!
+  content: String
+  rating: Int
+  updatedAt: String
+}
+
+type Game {
+  reviews: [Review]
+}
+
+input ReviewInput {
+  gameId: ID!
+  content: String
+  rating: Int
+}
+
+type Mutation {
+  createReview(input: ReviewInput!): Review
+}

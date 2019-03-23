@@ -1,0 +1,40 @@
+{
+  "name": "ts-gql-modules",
+  "version": "1.0.0",
+  "description": "Typescript GraphQL with modules",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node index.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "graphql",
+    "apollo",
+    "typescript",
+    "graphql-modules"
+  ],
+  "author": "kari.heikkinen@nordcloud.com",
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-modules/core": "^0.6.6",
+    "@koa/cors": "^3.0.0",
+    "apollo-server": "^2.4.8",
+    "apollo-server-koa": "^2.4.8",
+    "dataloader": "^1.4.0",
+    "dotenv": "^7.0.0",
+    "graphql": "^14.1.1",
+    "graphql-import": "^0.7.1",
+    "koa": "^2.7.0",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^3.3.4000",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/uuid": "^3.4.4",
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0"
+  }
+}

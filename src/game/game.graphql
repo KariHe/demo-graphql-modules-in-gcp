@@ -1,0 +1,31 @@
+# import User from '../user/user.graphql'
+
+type Game {
+  id: ID!
+  creator: User!
+  name: String!
+  description: String
+  owned: Boolean
+  updatedAt: String
+  owners: [User]
+}
+
+input GameInput {
+  name: String!
+  description: String
+}
+
+input OwnerInput {
+  gameId: ID!
+  owned: Boolean!
+}
+
+type Query {
+  getGame(gameId: ID!): Game
+  listGames: [Game]
+}
+
+type Mutation {
+  createGame(input: GameInput!): Game
+  addOwner(input: OwnerInput!): Game
+}

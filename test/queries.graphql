@@ -1,0 +1,60 @@
+query getGame($game: ID!) {
+  getGame(gameId: $game) {
+    id
+    name
+    description
+    creator {
+      name
+    }
+    owners {
+        name
+      }
+    owned
+    updatedAt
+    reviews {
+      content
+      rating
+      user { name}
+    }
+  }
+}
+
+query listGames {
+  listGames {
+    id
+    name
+    description
+    creator {
+      name
+    }
+    owners {
+      name
+    }
+    owned
+    updatedAt
+  }
+}
+
+mutation addComment($game: ID!) {
+  createReview(input: { gameId: $game, content: "foobar", rating: 2 }) {
+    user {
+      name
+    }
+  }
+}
+
+mutation addOwned($game: ID!) {
+  addOwner(
+    input: { gameId: $game, owned: true }
+  ) {
+    id
+  }
+}
+
+mutation createGame {
+  createGame(input: { name: "test", description: "testing" }) {
+    id
+    name
+    description
+  }
+}

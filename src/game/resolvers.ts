@@ -24,7 +24,7 @@ export const resolvers = {
         return null;
       }
 
-      for (let owner of obj.owners) {
+      for (const owner of obj.owners) {
         if(owner === user.id) {
           return true;
         }
@@ -49,7 +49,7 @@ export const resolvers = {
       const Games: GameProvider = injector.get(GameProvider);
 
       const game: Game = {
-        id: uuid(),
+        id: '',
         creator: user.id,
         name: input.name,
         description: input.description,

@@ -1,6 +1,9 @@
-import uuid from 'uuid';
 import { Game, GameProvider } from './provider';
 import { UserProvider, User } from '../user/provider';
+import { PubSub } from 'apollo-server';
+
+const pubsub = new PubSub();
+const GAME_ADDED = 'GAME_ADDED';
 
 export const resolvers = {
   Game: {
@@ -57,7 +60,10 @@ export const resolvers = {
         owners: []
       };
 
-      return await Games.set(game);
+      const result = await Games.set(game);
+      pubsub.publish(GAME_ADDED, { addGame: result });
+      
+      return result;
     },
     
     async addOwner(obj, {input}, {injector, user}): Promise<Game> {
@@ -72,6 +78,11 @@ export const resolvers = {
         game.owners = game.owners.filter( id => user.id !== id); 
       }
       return await Games.set(game);
+    }
+  },
+  Subscription: {
+    addGame: {
+      subscribe: () => pubsub.asyncIterator([GAME_ADDED])
     }
   }
 };

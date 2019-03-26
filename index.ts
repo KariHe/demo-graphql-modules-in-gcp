@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import Koa from 'koa';
 import cors from '@koa/cors';
 
+import dotenv from 'dotenv';
+dotenv.config();
 
 import GraphQLApp from './src';
 
@@ -12,6 +14,8 @@ app.use(cors());
 
 GraphQLApp.applyMiddleware({ app });
 
-app.listen({ port },  () => {
+const server = app.listen({ port },  () => {
   console.log('Server listing on', `http://localhost:${port}/graphql`);
 });
+
+GraphQLApp.installSubscriptionHandlers(server);

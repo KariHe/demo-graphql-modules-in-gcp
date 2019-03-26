@@ -1,6 +1,4 @@
 import { Injectable, ProviderScope } from '@graphql-modules/di';
-import { ApolloError } from 'apollo-server';
-import uuid = require('uuid');
 import { Datastore } from '@google-cloud/datastore';
 
 export interface Review {
@@ -10,10 +8,6 @@ export interface Review {
   content: string;
   rating: number;
   updatedAt: string;
-}
-
-interface ReviewMap { 
-  [key: string]: Review; 
 }
 
 @Injectable({

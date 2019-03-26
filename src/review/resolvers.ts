@@ -1,7 +1,10 @@
 import { UserProvider, User } from '../user/provider';
 import { ReviewProvider, Review } from './provider';
 import { GameProvider, Game } from '../game/provider';
+import { withFilter, PubSub } from 'apollo-server';
 
+const pubsub = new PubSub();
+const ADD_REVIEW = 'ADD_REVIEW';
 
 export const resolvers = {
   Review: {
@@ -27,13 +30,30 @@ export const resolvers = {
     async createReview(obj, {input}, {injector, user}): Promise<Review> {
       const Reviews: ReviewProvider = injector.get(ReviewProvider);
       const { gameId, content, rating } = input;
-      return await Reviews.create({
+       const review =  await Reviews.create({
         game: gameId,
         content,
         rating,
         user: user.id,
         updatedAt: new Date().toISOString()
       });
+
+      pubsub.publish(ADD_REVIEW, {addReview: review });
+      return review;
+    }
+  },
+  Subscription: {
+    addReview: {
+      subscribe: withFilter(
+          () => pubsub.asyncIterator([ADD_REVIEW]),
+          (payload, args) => {
+            if(args.input) {
+              return payload.addReview.gameId === args.input;
+            } else {
+              return true;
+            }
+          }
+        )
     }
   }
 };

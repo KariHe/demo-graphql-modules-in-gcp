@@ -1,7 +1,7 @@
 import { Injectable, ProviderScope } from '@graphql-modules/di';
 import { DataSource, DataSourceConfig } from 'apollo-datasource';
 import { KeyValueCache, InMemoryLRUCache } from 'apollo-server-caching';
-import uuid from 'uuid';
+import admin from 'firebase-admin';
 import Dataloader from 'dataloader';
 
 export interface User {
@@ -45,10 +45,12 @@ export class UserProvider extends DataSource {
       return JSON.parse(json) as User;
     }
 
-    // Resolve from source and insert to cache
-    return {
-      id: uuid(),
-      name: 'Teppo testaaja'
-    };
+    // Fetch user data from Firebase
+    const userData = await admin.auth().getUser(id);
+    const user = { id: userData.uid, name: userData.displayName || '' };
+
+    // Store to cache
+    this.cache.set(user.id, JSON.stringify(user), { ttl: UserProvider.CACHE_TIME });
+    return user;
   }
 }

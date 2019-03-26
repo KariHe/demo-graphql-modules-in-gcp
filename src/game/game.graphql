@@ -1,4 +1,5 @@
-# import User from '../user/user.graphql'
+# import Game from '../user/user.graphql'
+# import auth from '../user/user.graphql'
 
 type Game {
   id: ID!
@@ -26,6 +27,10 @@ type Query {
 }
 
 type Mutation {
-  createGame(input: GameInput!): Game
-  addOwner(input: OwnerInput!): Game
+  createGame(input: GameInput!): Game @auth
+  addOwner(input: OwnerInput!): Game @auth
+}
+
+type Subscription {
+  addGame: Game
 }

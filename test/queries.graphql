@@ -1,3 +1,10 @@
+query me {
+  me {
+    id
+    name
+  }
+}
+
 query getGame($game: ID!) {
   getGame(gameId: $game) {
     id
@@ -56,5 +63,19 @@ mutation createGame {
     id
     name
     description
+  }
+}
+
+subscription subReview {
+  addReview {
+    id
+    rating
+    content
+    user {
+      name
+    }
+    game {
+      name
+    }
   }
 }

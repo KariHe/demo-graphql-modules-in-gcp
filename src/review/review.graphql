@@ -1,4 +1,4 @@
-# import User from '../user/user.graphql'
+# import User, auth from '../user/user.graphql'
 # import Game from '../game/game.graphql'
 
 type Review {
@@ -21,5 +21,9 @@ input ReviewInput {
 }
 
 type Mutation {
-  createReview(input: ReviewInput!): Review
+  createReview(input: ReviewInput!): Review @auth
+}
+
+type Subscription {
+  addReview(input: ID): Review
 }

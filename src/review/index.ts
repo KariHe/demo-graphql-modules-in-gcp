@@ -8,7 +8,7 @@ import { resolvers } from './resolvers';
 import { ReviewProvider } from './provider';
 
 export default new GraphQLModule({
-  name: 'Games',
+  name: 'Review',
   imports: [
     UserModule,
     GameModule

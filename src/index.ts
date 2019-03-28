@@ -21,5 +21,6 @@ export default new ApolloServer({
   schema,
   context,
   subscriptions,
-  introspection: true
+  introspection: true,
+  playground: true
 });

@@ -30,7 +30,7 @@ export class GameProvider {
     return game;
   }
 
-  public async get(id): Promise<Game> {
+  public async get(id: string): Promise<Game> {
     const gameKey = this.store.key([GameProvider.KIND, Number(id)]);
     const results = await this.store.get(gameKey);
 
@@ -53,7 +53,7 @@ export class GameProvider {
       return [];
     }
 
-    games.forEach(game => {
+    games.forEach((game: Game) => {
         game.id = game[this.store.KEY].id;
     });
 

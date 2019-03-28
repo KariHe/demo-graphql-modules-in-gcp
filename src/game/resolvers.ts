@@ -8,13 +8,15 @@ const GAME_ADDED = 'GAME_ADDED';
 export const resolvers = {
   Game: {
     // Map creator user Id to user data
-    async creator(obj, args, {injector}): Promise<User> {
+    async creator(obj: Game, args: unknown, {injector}): Promise<User> {
+      console.info('Game.creator', obj);
       const Users: UserProvider = injector.get(UserProvider);
       return await Users.get(obj.creator);
     },
 
     // Map owners user Ids to user data
-    async owners(obj, args, {injector}) {
+    async owners(obj: Game, args: unknown, {injector}) {
+      console.info('Game.owners', obj);
       const Users: UserProvider = injector.get(UserProvider);
       return Promise.all( 
         obj.owners.map( id => Users.get(id) )
@@ -22,7 +24,8 @@ export const resolvers = {
     },
 
     // Resolve does user own the game
-    async owned(obj, args, {user}) {
+    async owned(obj: Game, args: unknown, {user}) {
+      console.info('Game.owned', obj);
       if(!user) {
         return null;
       }
@@ -38,17 +41,20 @@ export const resolvers = {
   },
   Query: {
     async getGame(obj, {gameId}, {injector}): Promise<Game> {
+      console.info('Query.getGame');
       const Games: GameProvider = injector.get(GameProvider);
       return await Games.get(gameId);
     },
 
     async listGames(obj, args, {injector}): Promise<Game[]> {
+      console.info('Query.listGames');
       const Games: GameProvider = injector.get(GameProvider);
       return await Games.list();
     }
   },
   Mutation: {
     async createGame(obj, {input}, {injector, user}): Promise<Game> {
+      console.info('Query.createGame', input);
       const Games: GameProvider = injector.get(GameProvider);
 
       const game: Game = {
@@ -66,7 +72,8 @@ export const resolvers = {
       return result;
     },
     
-    async addOwner(obj, {input}, {injector, user}): Promise<Game> {
+    async addOwner(obj: unknown, {input}, {injector, user}): Promise<Game> {
+      console.info('Query.addOwner', input);
       const Games: GameProvider = injector.get(GameProvider);
       const game: Game = await Games.get(input.gameId);
 
@@ -82,7 +89,10 @@ export const resolvers = {
   },
   Subscription: {
     addGame: {
-      subscribe: () => pubsub.asyncIterator([GAME_ADDED])
+      subscribe: () => {
+        console.info('Subscription.addGame');
+        return pubsub.asyncIterator([GAME_ADDED]);
+      }
     }
   }
 };

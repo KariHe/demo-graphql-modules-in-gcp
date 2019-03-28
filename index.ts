@@ -7,10 +7,26 @@ dotenv.config();
 
 import GraphQLApp from './src';
 
-const port = process.env.NODE_PORT || 3000;
+const port = process.env.PORT || 8080;
 const app = new Koa();
 
-app.use(cors());
+app.proxy = true;
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    console.error(err);
+    // will only respond with JSON
+    ctx.status = err.statusCode || err.status || 500;
+    ctx.body = {
+      message: err.message
+    };
+  }
+});
+
+app.use(cors({
+  origin: '*'
+}));
 
 GraphQLApp.applyMiddleware({ app });
 

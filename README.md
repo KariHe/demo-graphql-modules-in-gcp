@@ -18,7 +18,7 @@ gcloud app create --project=[YOUR_PROJECT_NAME]
 ```
 
 Create new Firebase project from <https://console.firebase.google.com> and attach it to your GCP project.
-Then enable authentication (email/password) and create test user.
+Then enable authentication (email/password).
 
 And to deploy new version just run command
 
@@ -27,6 +27,18 @@ gcloud app deploy
 ```
 
 ## Testing API
+
+To create user there is a helper script in `scripts` folder. You need to first set setup credentials,
+more details in section _Running locally against real environment_.
+
+```sh
+node test/create-user.js
+? Users full name Test User
+? e-mail address test@example.com
+? Password ********
+? Re-type password ********
+* User created
+```
 
 You can test GraphQL API from deplpyment or running it localy with `npm run watch`.
 For mutation you need to have account in Firebase auth for your project and you can get token
@@ -50,7 +62,7 @@ Get idToken field value from the response and set it to http header in GraphQL A
 }
 ```
 
-## Running locally with real Datastore
+## Running locally against real environment
 
 To access your real resources for testing from your local machine you need to download
 credentials.json for service account used in cloud. You can do this from GCP console IAM section.

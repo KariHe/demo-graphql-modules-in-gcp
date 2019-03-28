@@ -48,7 +48,8 @@ export const resolvers = {
           () => pubsub.asyncIterator([ADD_REVIEW]),
           (payload, args) => {
             if(args.input) {
-              return payload.addReview.gameId === args.input;
+              // tslint:disable-next-line:triple-equals
+              return payload.addReview.gameId == args.input;
             } else {
               return true;
             }

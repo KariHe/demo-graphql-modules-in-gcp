@@ -35,7 +35,7 @@ async function context(session: AuthSession): Promise<UserContext> {
       }
     };
   } catch ( err ) {
-    console.error(err);
+    console.info(err instanceof Error ? err.message: err);
     return { user: null };
   }
 }

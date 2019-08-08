@@ -1,4 +1,3 @@
-# import Game from '../user/user.graphql'
 # import auth from '../user/user.graphql'
 
 type Game {

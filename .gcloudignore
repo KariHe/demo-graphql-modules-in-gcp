@@ -15,4 +15,7 @@
 
 # Node.js dependencies:
 node_modules/
-test
+dist
+coverage
+.env
+utils

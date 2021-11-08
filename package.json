@@ -29,7 +29,7 @@
     "@google-cloud/datastore": "^4.1.4",
     "@graphql-modules/core": "^0.7.9",
     "@koa/cors": "^3.0.0",
-    "apollo-server": "^2.8.1",
+    "apollo-server": "^2.25.3",
     "apollo-server-koa": "^2.8.1",
     "copyfiles": "^2.1.1",
     "dataloader": "^1.4.0",

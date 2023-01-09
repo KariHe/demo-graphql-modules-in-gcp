@@ -34,7 +34,7 @@
     "copyfiles": "^2.1.1",
     "dataloader": "^1.4.0",
     "dotenv": "^7.0.0",
-    "firebase-admin": "^7.4.0",
+    "firebase-admin": "^11.4.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
     "koa": "^2.7.0",
